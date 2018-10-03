@@ -5,6 +5,8 @@
     "slug": "Tinder",
     "privacy": "public",
     "sdkVersion": "30.0.0",
+    "FacebookAppID": "173023876951305",
+    "facebookDisplayName": "Tinder",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,9 +19,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     }
