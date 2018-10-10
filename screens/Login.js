@@ -15,8 +15,7 @@ class Login extends React.Component {
   componentWillMount() {
     firebase.auth().onAuthStateChanged(user => {
       if (user != null) {
-        this.props.login(true);
-        console.log("We are authenticated now!" + JSON.stringify(user));
+        this.props.login(user);
       }
     });
   }
@@ -36,7 +35,7 @@ class Login extends React.Component {
 
       firebase
         .auth()
-        .signInWithCredential(credential)
+        .signInAndRetrieveDataWithCredential(credential)
         .catch(error => {
           Alert.alert("Try Again!");
         });
@@ -44,6 +43,7 @@ class Login extends React.Component {
   };
 
   render() {
+    console.log(this.props.loggedIn);
     if (this.props.loggedIn) {
       return <RootNavigator />;
     } else {

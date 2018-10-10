@@ -1,7 +1,27 @@
-export default (reducers = (state = { loggedIn: false }, action) => {
+export default (reducers = (
+  state = {
+    loggedIn: false,
+    user: {
+      id: "",
+      photoUrl: "",
+      name: "",
+      aboutMe: "",
+      chats: "",
+      geocode: "",
+      images: [],
+      notification: false,
+      show: false,
+      report: false,
+      swipes: [],
+      token: ""
+    }
+  },
+  action
+) => {
   switch (action.type) {
     case "LOGIN":
-      return { ...state, loggedIn: action.payload };
+      console.log(action.loggedIn);
+      return { ...state, user: action.user, loggedIn: action.loggedIn };
   }
   return state;
 });
