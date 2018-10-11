@@ -20,8 +20,9 @@ export default (reducers = (
 ) => {
   switch (action.type) {
     case "LOGIN":
-      console.log(action.loggedIn);
       return { ...state, user: action.user, loggedIn: action.loggedIn };
+    case "UPLOAD_IMAGES":
+      return { ...state, user: { ...state.user, images: action.payload } };
   }
   return state;
 });
