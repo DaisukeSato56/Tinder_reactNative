@@ -2,6 +2,7 @@ import * as firebase from "firebase";
 import aws from "../config/aws";
 import { ImagePicker, Permissions } from "expo";
 import { RNS3 } from "react-native-aws3";
+import { Alert } from "react-native";
 
 export const login = user => {
   return dispatch => {
@@ -39,11 +40,17 @@ export const login = user => {
   };
 };
 
+export const logout = () => {
+  return dispatch => {
+    firebase.auth().signOut();
+    dispatch({ type: "LOGOUT", loggedIn: false });
+  };
+};
+
 export const uploadImages = images => {
   return async dispatch => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (status === "granted") {
-      console.log("hey");
       ImagePicker.launchImageLibraryAsync({ allowsEditing: false }).then(
         result => {
           const array = images;
@@ -77,5 +84,45 @@ export const uploadImages = images => {
         }
       );
     }
+  };
+};
+
+export const deleteImage = (images, key) => {
+  return dispatch => {
+    Alert.alert(
+      "Are you sure you want to Delete?",
+      "",
+      [
+        {
+          text: "ok",
+          onPress: () => {
+            const array = images;
+            array.splice(key, 1);
+            dispatch({ type: "UPLOAD_IMAGES", payload: array });
+            firebase
+              .database()
+              .ref("cards/" + firebase.auth().currentUser.uid + "/images")
+              .set(array);
+          }
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed")
+        }
+      ],
+      { cancelable: true }
+    );
+  };
+};
+
+export const updateAbout = value => {
+  return dispatch => {
+    dispatch({ type: "UPDATE_ABOUT", payload: value });
+    setTimeout(() => {
+      firebase
+        .database()
+        .ref("cards/" + firebase.auth().currentUser.uid)
+        .update({ aboutMe: value });
+    }, 3000);
   };
 };

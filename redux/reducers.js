@@ -23,6 +23,10 @@ export default (reducers = (
       return { ...state, user: action.user, loggedIn: action.loggedIn };
     case "UPLOAD_IMAGES":
       return { ...state, user: { ...state.user, images: action.payload } };
+    case "LOGOUT":
+      return { ...state, loggedIn: action.loggedIn };
+    case "UPLOAD_ABOUT":
+      return { ...state, user: { ...state.user, aboutMe: action.payload } };
   }
   return state;
 });
