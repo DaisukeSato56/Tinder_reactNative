@@ -22,6 +22,7 @@ class Profile extends React.Component {
         {this.props.user.images.map((uri, key) => {
           return (
             <TouchableOpacity key={{ key }}>
+              <Text>touch!touch!</Text>
               <Image style={{ width: 75, height: 75 }} source={{ uri: uri }} />
             </TouchableOpacity>
           );
