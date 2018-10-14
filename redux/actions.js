@@ -126,3 +126,20 @@ export const updateAbout = value => {
     }, 3000);
   };
 };
+
+export const getCards = () => {
+  return dispatch => {
+    firebase
+      .database()
+      .ref("cards")
+      .once("value", snap => {
+        const items = [];
+        snap.forEach(child => {
+          item = child.val();
+          item.id = child.key;
+          items.push(item);
+        });
+        dispatch({ type: "GET_CARDS", payload: items });
+      });
+  };
+};
