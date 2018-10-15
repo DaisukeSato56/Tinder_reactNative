@@ -50,6 +50,21 @@ const styles = StyleSheet.create({
     margin: 15,
     fontSize: 18,
     fontWeight: "bold"
+  },
+  card: {
+    width: deviceWidth * 0.9,
+    height: deviceHeight * 0.75,
+    borderRadius: 50
+  },
+  cardDescription: {
+    padding: 15,
+    justifyContent: "flex-end",
+    flex: 1
+  },
+  cardInfo: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    padding: 10
   }
 });
 

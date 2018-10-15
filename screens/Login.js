@@ -47,7 +47,7 @@ class Login extends React.Component {
       return <RootNavigator />;
     } else {
       return (
-        <View style={styles.container}>
+        <View style={[styles.container, styles.center]}>
           <TouchableOpacity onPress={this.login.bind(this)}>
             <Text>Login</Text>
           </TouchableOpacity>

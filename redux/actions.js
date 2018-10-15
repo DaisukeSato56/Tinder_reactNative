@@ -10,15 +10,15 @@ export const login = user => {
       id: user.uid,
       photoUrl: user.photoURL,
       name: user.displayName,
-      aboutMe: "",
-      chats: "",
-      geocode: "",
+      aboutMe: " ",
+      chats: " ",
+      geocode: " ",
       images: [user.photoURL],
       notification: false,
       show: false,
       report: false,
       swipes: { [user.uid]: false },
-      token: ""
+      token: " "
     };
 
     firebase
