@@ -5,6 +5,9 @@ import TabNavigator from "./TabNavigator";
 const RootStackNavigator = createStackNavigator({
   Main: {
     screen: TabNavigator
+  },
+  Chat: {
+    screen: Chat
   }
 });
 
