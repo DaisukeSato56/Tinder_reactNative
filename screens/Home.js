@@ -8,7 +8,7 @@ import * as firebase from "firebase";
 
 class Home extends React.Component {
   componentWillMount() {
-    this.props.getCards();
+    this.props.getCards(this.props.user.geocode);
   }
 
   handleYup(card) {
