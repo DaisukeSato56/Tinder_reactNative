@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 import aws from "../config/aws";
-import { ImagePicker, Permissions, Location } from "expo";
+import { ImagePicker, Permissions, Locationm, Notifications } from "expo";
 import { RNS3 } from "react-native-aws3";
 import { Alert } from "react-native";
 
@@ -29,6 +29,7 @@ export const login = user => {
       .then(snapshot => {
         if (snapshot.val() !== null) {
           dispatch({ type: "LOGIN", user: snapshot.val(), loggedIn: true });
+          dispatch(allowNotification());
         } else {
           firebase
             .database()
@@ -165,5 +166,46 @@ export const getLoaction = () => {
         });
       }
     });
+  };
+};
+
+export const allowNotification = () => {
+  return dispatch => {
+    Permissions.getAsync(Permissions.NOTIFICATIONS).then(result => {
+      if (result.status === "granted") {
+        Notifications.getExpoPushTokenAsync().then(token => {
+          firebase
+            .database()
+            .ref("cards/" + firebase.auth().currentUser.uid)
+            .update({ token: token });
+          dispatch({ type: "ALLOW_NOTIFICATIONS", payload: token });
+        });
+      }
+    });
+  };
+};
+
+export const sendNotification = (id, name, text) => {
+  return dispatch => {
+    firebase
+      .database()
+      .red("cards/" + id)
+      .once("value", snap => {
+        if (snap.val().token != null) {
+          return fetch("https://exp.host/--/api/v2/push/send", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              to: snap.val().token,
+              title: name,
+              body: text,
+              badge: 1
+            })
+          });
+        }
+      });
   };
 };

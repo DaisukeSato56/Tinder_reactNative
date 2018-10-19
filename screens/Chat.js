@@ -37,6 +37,12 @@ class Chat extends React.Component {
       messages[0].user.name,
       messages[0].text
     );
+
+    this.props.sendNotification(
+      this.props.navigation.state.params.user.id,
+      messages[0].user.name,
+      messages[0].text
+    );
     this.setState(previousState => {
       messages: GiftedChat.append(previousState.messages, messages);
     });
@@ -79,4 +85,7 @@ const maStateToProps = () => {
   return { user: state.user };
 };
 
-export default connect(maStateToProps)(Chat);
+export default connect(
+  maStateToProps,
+  { sendNotification }
+)(Chat);
